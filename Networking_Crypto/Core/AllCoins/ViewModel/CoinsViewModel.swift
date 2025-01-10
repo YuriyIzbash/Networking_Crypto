@@ -10,6 +10,7 @@ import Foundation
 class CoinsViewModel: ObservableObject {
     @Published var coin = ""
     @Published var price = ""
+    @Published var errorMessage: String?
     
     init() {
         fetchPrice(coin: "litecoin")
@@ -20,15 +21,29 @@ class CoinsViewModel: ObservableObject {
         guard let url = URL(string: urlString) else { return }
         
         URLSession.shared.dataTask(with: url) { data, response, error in
-            guard let data = data else { return }
-            guard let jsonObject = try? JSONSerialization.jsonObject(with: data) as? [String: Any] else { return }
-            print(jsonObject)
-            guard let value = jsonObject[coin] as? [String: Double] else { return }
-            guard let price = value["usd"] else { return }
-            
             DispatchQueue.main.async {
+                if let error = error {
+                    print("DEBUG: Failed with error: \(error.localizedDescription)")
+                    self.errorMessage = error.localizedDescription
+                    return
+                }
+                
+                guard let httpResponse = response as? HTTPURLResponse else {
+                    self.errorMessage = "Bad HTTP response"
+                    return
+                }
+                guard httpResponse.statusCode == 200 else {
+                    print("DEBUG: Failed with status code: \(httpResponse.statusCode)")
+                    self.errorMessage = "Failed with status code: \(httpResponse.statusCode)"
+                    return
+                }
+                guard let data = data else { return }
+                guard let jsonObject = try? JSONSerialization.jsonObject(with: data) as? [String: Any] else { return }
+                guard let value = jsonObject[coin] as? [String: Double] else { return }
+                guard let price = value["usd"] else { return }
+                
                 self.coin = coin.capitalized
-                self.price = "\(price)"
+                self.price = "$ \(price)"
             }
         }.resume()
     }
