@@ -14,11 +14,27 @@ struct ContentView: View {
     var body: some View {
         List {
             ForEach(viewModel.coins) { coin in
-                Text(coin.name)
+                HStack(spacing: 12) {
+                    Text("\(coin.marketCapRank)")
+                        .foregroundStyle(.gray)
+                    
+                    Circle()
+                        .frame(width: 30, height: 30)
+                    VStack(alignment: .leading, spacing: 6) {
+                        Text(coin.name)
+                        Text(coin.symbol.uppercased())
+                    }
+                }
+                .font(.footnote)
+            }
+        }
+        .overlay {
+            if let error = viewModel.errorMessage {
+                Text(error)
             }
         }
         .listStyle(.insetGrouped)
-        .padding()
+        
     }
 }
 
