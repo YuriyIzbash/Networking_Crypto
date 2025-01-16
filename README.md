@@ -54,7 +54,7 @@ GET https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_
 
 ## Screenshots
 
-![App Screenshot](<img src="./screenshot.png" alt="App Screenshot" width="400">)
+<img src="./screenshot.png" alt="App Screenshot" width="400">
 
 ## Future Enhancements
 
