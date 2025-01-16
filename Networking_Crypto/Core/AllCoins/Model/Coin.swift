@@ -12,6 +12,7 @@ struct Coin: Identifiable, Codable {
     let symbol: String
     let name: String
     let currentPrice: Double
+    let priceChangePercentage: Double
     let marketCapRank: Int
     let image: URL
     
@@ -19,5 +20,6 @@ struct Coin: Identifiable, Codable {
         case id, symbol, name, image
         case currentPrice = "current_price"
         case marketCapRank = "market_cap_rank"
+        case priceChangePercentage = "price_change_percentage_24h"
     }
 }

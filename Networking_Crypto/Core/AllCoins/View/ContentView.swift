@@ -29,10 +29,19 @@ struct ContentView: View {
                             .frame(width: 32, height: 32)
                             .background (Color (.systemGray5))
                     }
-                        
+                    
                     VStack(alignment: .leading, spacing: 6) {
                         Text(coin.name)
                         Text(coin.symbol.uppercased())
+                    }
+                    
+                    Spacer()
+                    
+                    VStack(alignment: .trailing, spacing: 6) {
+                        Text("$\(coin.currentPrice, specifier: "%.2f")")
+                            .bold()
+                        Text("\(coin.priceChangePercentage, specifier: "%.2f")%")
+                            .foregroundColor(coin.priceChangePercentage >= 0 ? .green : .red)
                     }
                 }
                 .font(.footnote)
