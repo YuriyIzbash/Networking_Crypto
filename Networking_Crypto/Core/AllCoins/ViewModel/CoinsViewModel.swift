@@ -32,9 +32,13 @@ class CoinsViewModel: ObservableObject {
             DispatchQueue.main.async {
                 self.coins = fetchedCoins
             }
+        } catch let error as CoinAPIError {
+            DispatchQueue.main.async {
+                self.errorMessage = error.customDescription
+            }
         } catch {
             DispatchQueue.main.async {
-                self.errorMessage = error.localizedDescription
+                self.errorMessage = "An unexpected error occurred: \(error.localizedDescription)"
             }
         }
     }
