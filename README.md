@@ -19,7 +19,7 @@ A SwiftUI-based cryptocurrency tracking app that fetches real-time coin data usi
 ## Technologies Used
 
 - **SwiftUI** for the user interface.
-- **Combine** for state management.
+- **async/await** for asynchronous tasks and data fetching.
 - **URLSession** for networking.
 - **JSONDecoder** for decoding API responses.
 
