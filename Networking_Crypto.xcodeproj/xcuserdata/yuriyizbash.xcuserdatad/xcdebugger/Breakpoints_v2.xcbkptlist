@@ -14,8 +14,8 @@
             filePath = "Networking_Crypto/Core/AllCoins/Service/CoinDataService.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "37"
-            endingLineNumber = "37"
+            startingLineNumber = "48"
+            endingLineNumber = "48"
             landmarkName = "CoinDataService"
             landmarkType = "3">
          </BreakpointContent>
