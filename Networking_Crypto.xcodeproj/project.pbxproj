@@ -6,8 +6,15 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		5B9F5E402D394AB1004EC680 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 5B9F5E3F2D394AB1004EC680 /* README.md */; };
+		5B9F5E422D394ACD004EC680 /* screenshot.png in Resources */ = {isa = PBXBuildFile; fileRef = 5B9F5E412D394ACD004EC680 /* screenshot.png */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXFileReference section */
 		5B1971AE2D3139D3009CBFEF /* Networking_Crypto.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Networking_Crypto.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		5B9F5E3F2D394AB1004EC680 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		5B9F5E412D394ACD004EC680 /* screenshot.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = screenshot.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -32,6 +39,8 @@
 		5B1971A52D3139D3009CBFEF = {
 			isa = PBXGroup;
 			children = (
+				5B9F5E3F2D394AB1004EC680 /* README.md */,
+				5B9F5E412D394ACD004EC680 /* screenshot.png */,
 				5B1971B02D3139D3009CBFEF /* Networking_Crypto */,
 				5B1971AF2D3139D3009CBFEF /* Products */,
 			);
@@ -109,6 +118,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5B9F5E422D394ACD004EC680 /* screenshot.png in Resources */,
+				5B9F5E402D394AB1004EC680 /* README.md in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

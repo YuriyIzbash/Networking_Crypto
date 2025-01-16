@@ -3,8 +3,6 @@
 
 A SwiftUI-based cryptocurrency tracking app that fetches real-time coin data using the CoinGecko API. This app demonstrates how to work with async/await, Swift's modern concurrency model, and implement effective error handling and pagination in a real-world scenario.
 
-![App Screenshot](./screenshot.png)
-
 ## Features
 
 - Displays a list of top cryptocurrencies with their details:
@@ -56,7 +54,7 @@ GET https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_
 
 ## Screenshots
 
-![App Screenshot](./screenshot.png)
+![App Screenshot](<img src="./screenshot.png" alt="App Screenshot" width="400">)
 
 ## Future Enhancements
 
