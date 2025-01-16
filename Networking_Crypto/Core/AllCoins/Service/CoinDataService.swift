@@ -27,6 +27,7 @@ class CoinDataService {
 
 
 // MARK: - Completion Handler
+/*
 extension CoinDataService {
     func fetchCoinsWithResult(completion: @escaping(Result<[Coin], CoinAPIError>) -> Void) {
         guard let url = URL(string: urlString) else { return }
@@ -115,3 +116,4 @@ extension CoinDataService {
         }.resume()
     }
 }
+*/

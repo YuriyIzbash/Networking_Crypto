@@ -18,8 +18,18 @@ struct ContentView: View {
                     Text("\(coin.marketCapRank)")
                         .foregroundStyle(.gray)
                     
-                    Circle()
-                        .frame(width: 30, height: 30)
+                    AsyncImage (url: coin.image) { image in
+                        image
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 32, height: 32)
+                            .foregroundColor(.orange)
+                    } placeholder: {
+                        Circle ()
+                            .frame(width: 32, height: 32)
+                            .background (Color (.systemGray5))
+                    }
+                        
                     VStack(alignment: .leading, spacing: 6) {
                         Text(coin.name)
                         Text(coin.symbol.uppercased())
