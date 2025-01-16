@@ -17,39 +17,43 @@ class CoinsViewModel: ObservableObject {
     var isLoading = false
     
     init() {
-        Task {
-            do {
-                try await fetchCoins()
-            } catch {
-                DispatchQueue.main.async {
-                    self.errorMessage = error.localizedDescription
-                }
-            }
+        loadData()
+    }
+    
+    @MainActor
+    func fetchCoins() async throws {
+        guard !isLoading else { return }
+        isLoading = true
+        
+        do {
+            let newCoins = try await service.fetchCoins(page: currentPage)
+            
+            self.coins.append(contentsOf: newCoins)
+            self.currentPage += 1
+            self.isLoading = false
+            
+        } catch let error as CoinAPIError {
+            
+            self.errorMessage = error.customDescription
+            self.isLoading = false
+            
+        } catch {
+            
+            self.errorMessage = "\(error.localizedDescription)"
+            self.isLoading = false
         }
     }
     
-    func fetchCoins() async throws {
-        guard !isLoading else { return }
-                isLoading = true
-                
-                do {
-                    let newCoins = try await service.fetchCoins(page: currentPage)
-                    DispatchQueue.main.async {
-                        self.coins.append(contentsOf: newCoins)
-                        self.currentPage += 1
-                        self.isLoading = false
-                    }
-                } catch let error as CoinAPIError {
-                    DispatchQueue.main.async {
-                        self.errorMessage = error.customDescription
-                        self.isLoading = false
-                    }
-                } catch {
-                    DispatchQueue.main.async {
-                        self.errorMessage = "An unexpected error occurred: \(error.localizedDescription)"
-                        self.isLoading = false
-                    }
-                }
+    func loadData() {
+        Task(priority: .medium) {
+            try await fetchCoins()
+        }
+    }
+    
+    func handleRefresh() {
+        coins.removeAll()
+        currentPage = 1
+        loadData()
     }
     
     /*

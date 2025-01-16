@@ -10,6 +10,7 @@ import SwiftUI
 struct ContentView: View {
     
     @StateObject var viewModel = CoinsViewModel()
+    @State private var showAlert = false
     
     var body: some View {
         List {
@@ -64,12 +65,16 @@ struct ContentView: View {
                     }
             }
         }
-        .overlay {
-            if let error = viewModel.errorMessage {
-                Text(error)
-                    .foregroundColor(.red)
-                    .padding()
+        .refreshable {
+            viewModel.handleRefresh()
+        }
+        .onReceive(viewModel.$errorMessage) { error in
+            if error != nil {
+                showAlert.toggle()
             }
+        }
+        .alert(isPresented: $showAlert) {
+            Alert(title: Text("Error"), message: Text(viewModel.errorMessage ?? "An unknown error occurred."))
         }
         .listStyle(.insetGrouped)
     }
