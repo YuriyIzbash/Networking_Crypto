@@ -13,6 +13,8 @@ class CoinsViewModel: ObservableObject {
     @Published var errorMessage: String?
     
     private let service = CoinDataService()
+    private var currentPage = 1
+    var isLoading = false
     
     init() {
         Task {
@@ -27,20 +29,27 @@ class CoinsViewModel: ObservableObject {
     }
     
     func fetchCoins() async throws {
-        do {
-            let fetchedCoins = try await service.fetchCoins()
-            DispatchQueue.main.async {
-                self.coins = fetchedCoins
-            }
-        } catch let error as CoinAPIError {
-            DispatchQueue.main.async {
-                self.errorMessage = error.customDescription
-            }
-        } catch {
-            DispatchQueue.main.async {
-                self.errorMessage = "An unexpected error occurred: \(error.localizedDescription)"
-            }
-        }
+        guard !isLoading else { return }
+                isLoading = true
+                
+                do {
+                    let newCoins = try await service.fetchCoins(page: currentPage)
+                    DispatchQueue.main.async {
+                        self.coins.append(contentsOf: newCoins)
+                        self.currentPage += 1
+                        self.isLoading = false
+                    }
+                } catch let error as CoinAPIError {
+                    DispatchQueue.main.async {
+                        self.errorMessage = error.customDescription
+                        self.isLoading = false
+                    }
+                } catch {
+                    DispatchQueue.main.async {
+                        self.errorMessage = "An unexpected error occurred: \(error.localizedDescription)"
+                        self.isLoading = false
+                    }
+                }
     }
     
     /*

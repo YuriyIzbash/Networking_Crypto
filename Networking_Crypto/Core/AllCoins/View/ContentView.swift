@@ -44,16 +44,34 @@ struct ContentView: View {
                             .foregroundColor(coin.priceChangePercentage >= 0 ? .green : .red)
                     }
                 }
-                .font(.footnote)
+                .padding(.vertical, 8)
+            }
+            
+            // Loading Indicator
+            if viewModel.isLoading {
+                ProgressView()
+                    .frame(maxWidth: .infinity, alignment: .center)
+            } else {
+                Color.clear
+                    .onAppear {
+                        Task {
+                            do {
+                                try await viewModel.fetchCoins()
+                            } catch {
+                                print("Failed to fetch coins: \(error.localizedDescription)")
+                            }
+                        }
+                    }
             }
         }
         .overlay {
             if let error = viewModel.errorMessage {
                 Text(error)
+                    .foregroundColor(.red)
+                    .padding()
             }
         }
         .listStyle(.insetGrouped)
-        
     }
 }
 
